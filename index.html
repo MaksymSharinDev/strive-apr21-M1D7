@@ -43,52 +43,99 @@
 
     const changePcontent = function (flag, text, prev) {
       let pList = document.querySelectorAll('div>p')
-      return flag ? () => {
+      prev = flag ? (() => { 
         let prevContArray = []
-        for (let i; i < pList.length; i++) {
-          prevContArray.push(pList[i].value)
-          pList[i].value = text
+        for (let i = 0; i < pList.length; i++) {
+          prevContArray.push(pList[i].innerText)
+          pList[i].innerText = text
         }
-        return prevContArray
-      }
-        : () => {
-          for (let i; i < pList.length; i++) {
-            pList[i].value = prev[i]
-          }
+        return prevContArray })()
+      : (() => {
+        for (let i = 0; i < pList.length; i++) {
+          pList[i].innerText = prev[i]
         }
+        return prev
+      })()
+      return prev
     }
 
     /* EXERCISE 4
     Write a function for changing the destination of every link to https://www.google.com
     */
 
-    const changeUrls = function () {
-      //
+    const changeUrls = function ( flag, text, prev ) {
+      let linksList = document.getElementsByTagName('a')
+      return flag 
+
+      ? (() => {
+        let prevContArray = []
+        for (let i = 0; i < linksList.length; i++) {
+          prevContArray.push(linksList[i].attributes['href'])
+          linksList[i].setAttribute('href',text)
+        }
+        return prevContArray })()
+
+      : (() => {
+        for (let i = 0; i < linksList.length; i++) {
+          linksList[i].setAttribute('href',prev[i] ) 
+        }
+        return prev
+        })()
+      
     };
 
     /* EXERCISE 5
      Write a function for adding a new item in the second list.
      */
 
-    const addToTheSecond = function (content) {
-      //
+    const addToTheSecond = function (flag , content, listItemNode) {
+      let secondList = document.getElementById('secondList')
+      return flag
+      ? (()=>{
+        
+        listItemNode = document.createElement('li')
+        listItemNode.innerText = content
+        secondList.appendChild(listItemNode)
+        return listItemNode
+      })()
+      : (()=>{
+        secondList.removeChild(listItemNode)
+      })()
     };
 
     /* EXERCISE 6
     Write a function for adding a second paragraph to the div.
     */
 
-    const addParagraph = function (content) {
-      //
-    };
+    const addParagraph = function (flag , content, listItemNode) {
+      let divWithP = document.querySelector('div>p').parentElement
+      return flag
+      ? (()=>{
+        pNode = document.createElement('p')
+        pNode.innerText = content
+        divWithP.appendChild(pNode)
+        return pNode
+      })()
+      : (()=>{
+        divWithP.removeChild(pNode)
+      })()}
 
     /* EXERCISE 7
     Write a function for making the first UL disappear.
     */
 
-    const firstUlDisappear = function () {
-      //
-    };
+    const firstUlDisappear = function (flag , content ) {
+      let firstUl = document.getElementById('firstList')
+      flag
+      ? (()=>{
+        let original = firstUl.style.backgroundColor
+        firstUl.style.color = '#FF0000' 
+        setTimeout( () => firstUl.setAttribute('hidden', true)  , 2000)
+        setTimeout( () => firstUl.style.color = original  , 2001 )  
+      })()
+      : (()=>{
+        firstUl.removeAttribute('hidden')
+      })()}
 
     /* EXERCISE 8
     Write a function for making the background of every UL green.
@@ -180,16 +227,52 @@
         ">
           EX 2
         </button>
-        <!--
-          <button type="button" class="btn btn-dark m-2" onclick="
+
+        <button type="button" class="btn btn-dark m-2" onclick="
         disableBtn(this)
         writeToInput( inputField(),'Exercise 3 paragraph' )
-        addClassToTitle( true , getTextFromInputField() )
-        reverseIn5sec( () => { addClassToTitle( false , getTextFromInputField() ); enableBtn(this); } )
+        let prev = changePcontent( true , getTextFromInputField() , null )
+        reverseIn5sec( () => { changePcontent( false , null, prev ); enableBtn(this); } )
         ">
           EX 3
         </button>
-        -->
+
+        <button type="button" class="btn btn-dark m-2" onclick="
+        disableBtn(this)
+        writeToInput( inputField(),'https\:\/\/www.google.com' )
+        let prev = changeUrls( true , getTextFromInputField() , null )
+        reverseIn5sec( () => { changeUrls( false , null, prev ); enableBtn(this); } )
+        ">
+          EX 4
+        </button>
+
+        <button type="button" class="btn btn-dark m-2" onclick="
+        disableBtn(this)
+        writeToInput( inputField(),'EX 5 list item' )
+        let prev = addToTheSecond( true , getTextFromInputField() )
+        reverseIn5sec( () => { addToTheSecond( false,  null,  prev ); enableBtn(this); } )
+        ">
+          EX 5
+        </button>
+
+        <button type="button" class="btn btn-dark m-2" onclick="
+        disableBtn(this)
+        writeToInput( inputField(),'EX 6 paragraph' )
+        let prev = addParagraph( true , getTextFromInputField() )
+        reverseIn5sec( () => { addParagraph( false,  null,  prev ); enableBtn(this); } )
+        ">
+          EX 6
+        </button>
+
+        <button type="button" class="btn btn-dark m-2" onclick="
+        disableBtn(this)
+        firstUlDisappear( true )
+        reverseIn5sec( () => { firstUlDisappear( false ); enableBtn(this); } )
+        ">
+          EX 7
+        </button>
+
+
 
       </div>
     </div>
