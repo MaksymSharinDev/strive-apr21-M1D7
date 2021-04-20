@@ -1,0 +1,230 @@
+<html>
+
+<head>
+  <script>
+
+    //UTILITIES:
+    const inputField = () => document.getElementById('input-field')
+    const getTextFromInputField = () => inputField().value
+    const reverseIn5sec = (callback) => setTimeout(callback, 5000)
+
+    const disableBtn = (elem) => elem.setAttribute('disabled', true)
+    const enableBtn = (elem) => elem.removeAttribute('disabled')
+    const writeToInput = (inElem, text) => {
+      inElem.value = text
+      disableBtn(inElem)
+      reverseIn5sec(() => { enableBtn(inElem); inElem.value = '' })
+    }
+
+
+    /* EXERCISE 1
+    Write a function for changing the title of the document in something else.
+    */
+
+    const changeTitle = function (newTitle) {
+      let elem = document.querySelector('header>h1')
+      let prev = elem.innerHTML
+      elem.innerHTML = newTitle
+      return prev
+    };
+
+    /* EXERCISE 2
+    Write a function for changing the class of the title of the page in "myHeading".
+    */
+
+    const addClassToTitle = function (flag, classStr) {
+      let elem = document.querySelector('header>h1')
+      flag ? elem.classList.add(classStr) : elem.classList.remove(classStr)
+    };
+
+    /* EXERCISE 3
+    Write a function for changing the text of only the p which are children of a div.
+    */
+
+    const changePcontent = function (flag, text, prev) {
+      let pList = document.querySelectorAll('div>p')
+      return flag ? () => {
+        let prevContArray = []
+        for (let i; i < pList.length; i++) {
+          prevContArray.push(pList[i].value)
+          pList[i].value = text
+        }
+        return prevContArray
+      }
+        : () => {
+          for (let i; i < pList.length; i++) {
+            pList[i].value = prev[i]
+          }
+        }
+    }
+
+    /* EXERCISE 4
+    Write a function for changing the destination of every link to https://www.google.com
+    */
+
+    const changeUrls = function () {
+      //
+    };
+
+    /* EXERCISE 5
+     Write a function for adding a new item in the second list.
+     */
+
+    const addToTheSecond = function (content) {
+      //
+    };
+
+    /* EXERCISE 6
+    Write a function for adding a second paragraph to the div.
+    */
+
+    const addParagraph = function (content) {
+      //
+    };
+
+    /* EXERCISE 7
+    Write a function for making the first UL disappear.
+    */
+
+    const firstUlDisappear = function () {
+      //
+    };
+
+    /* EXERCISE 8
+    Write a function for making the background of every UL green.
+    */
+
+    const paintItGreen = function () {
+      //
+    };
+
+    /* EXERCISE 9
+    Make the heading of the page change color every time the user clicks on it.
+    */
+
+    const makeItClickable = function () {
+      //
+    };
+
+    /* EXERCISE 10
+    Change the footer text with something else when the user clicks on it.
+    */
+
+    const changeFooterText = function () {
+      //
+    };
+
+    /* EXERCISE 11
+    Attach an event listener to the input field in the page for console logging its value just after any keystroke.
+    */
+    //declared Up in the code
+    //const inputField = document.getElementById("input-field");
+    // ...
+
+    /* EXERCISE 12
+    Create a new welcome alert message when the page successfully loads.
+    */
+
+    window.onload = function () {
+      //
+    };
+
+    /* EXERCISE 13
+    Use HTML5 tags to divide the content of the page in a more semantic way.
+    */
+  </script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style>
+    .myHeading {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="row">
+    <div class="col-1">
+
+
+
+    </div>
+    <div class="col-11">
+      <header>
+        <h1>This is the title of the page</h1>
+        <h2>This is the subtitle of the page</h2>
+      </header>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-1">
+      <div id="exercises" class="container text-center d-flex m-2" style="
+      flex-direction: column;
+      margin: 25px; padding: 10px;
+      border-style: solid; border-radius: 3px; border-color: #667cde; box-shadow: 5px 5px 2px #667cde;
+      ">
+        <button type="button" class="btn btn-dark m-2" onclick="
+        disableBtn(this)
+        writeToInput( inputField(),'Exercise 1 Title' )
+        let prev = changeTitle( getTextFromInputField() )
+        reverseIn5sec( () => { changeTitle( prev ); enableBtn(this); } )
+        ">
+          EX 1
+        </button>
+
+        <button type="button" class="btn btn-dark m-2" onclick="
+        disableBtn(this)
+        writeToInput( inputField(),'text-success' )
+        addClassToTitle( true , getTextFromInputField() )
+        reverseIn5sec( () => { addClassToTitle( false , 'text-success' ); enableBtn(this); } )
+        ">
+          EX 2
+        </button>
+        <!--
+          <button type="button" class="btn btn-dark m-2" onclick="
+        disableBtn(this)
+        writeToInput( inputField(),'Exercise 3 paragraph' )
+        addClassToTitle( true , getTextFromInputField() )
+        reverseIn5sec( () => { addClassToTitle( false , getTextFromInputField() ); enableBtn(this); } )
+        ">
+          EX 3
+        </button>
+        -->
+
+      </div>
+    </div>
+    <div class="col-11">
+      <main>
+        <hr />
+
+        <ul id="firstList">
+          <li>1st</li>
+          <li>2nd</li>
+          <li>3rd</li>
+        </ul>
+
+        <ul id="secondList">
+          <li>1st</li>
+          <li>2nd</li>
+          <li>3rd</li>
+        </ul>
+
+        <a href="strive.school">This link goes to Strive School</a>
+
+        <div>
+          <p>This text is just for the exercise</p>
+        </div>
+
+        <div>
+          <input type="text" id="input-field" placeholder="input field for the exercise" />
+        </div>
+      </main>
+
+      <footer>
+        <p>And this text is just for the exercise too!</p>
+      </footer>
+    </div>
+  </div>
+</body>
+
+</html>
