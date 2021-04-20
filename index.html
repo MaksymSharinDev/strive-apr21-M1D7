@@ -180,8 +180,17 @@
     Change the footer text with something else when the user clicks on it.
     */
 
-    const changeFooterText = function () {
-      //
+    const changeFooterText = function (flag , content, prev) {
+      let footerElem = document.getElementsByTagName('footer')[0].children[0]
+      return flag 
+      ? (()=>{
+        let prev = footerElem.innerText
+        footerElem.innerText = content
+        return prev
+      })()
+      : (()=>{
+        footerElem.innerText = prev
+      })()
     };
 
     /* EXERCISE 11
@@ -306,11 +315,19 @@
         <button type="button" class="btn btn-dark m-2" onclick="
         disableBtn(this)
         let elem = makeItClickable( true )
-        console.log(elem)
         let timer = setInterval(() => elem.click(), 750 ) 
         reverseIn5sec( () => { makeItClickable( false ); enableBtn(this); clearTimeout(timer) } )
         ">
           EX 9
+        </button>
+
+        <button type="button" class="btn btn-dark m-2" onclick="
+        disableBtn(this)
+        writeToInput( inputField() ,'Exercise 10 FooterText' )
+        let prev = changeFooterText( true , getTextFromInputField() )
+        reverseIn5sec( () => { changeFooterText( false , null, prev ); enableBtn(this); } )
+        ">
+          EX 10
         </button>
 
 
