@@ -141,16 +141,39 @@
     Write a function for making the background of every UL green.
     */
 
-    const paintItGreen = function () {
-      //
+    const paintItGreen = function (flag , prev) {
+      let UlList = document.getElementsByTagName('ul')
+      return flag
+      ? (()=>{
+        prev = UlList[0].style.backgroundColor
+        for (let i = 0; i < UlList.length; i++) {
+          UlList[i].style.backgroundColor = 'green' }
+        return prev
+      })()
+      : (()=>{
+        for (let i = 0; i < UlList.length; i++) {
+        UlList[i].style.backgroundColor = prev }
+      })()
     };
 
     /* EXERCISE 9
     Make the heading of the page change color every time the user clicks on it.
     */
 
-    const makeItClickable = function () {
-      //
+    const makeItClickable = function (flag , prev) {
+      let headerElem = document.getElementsByTagName('header')[0]
+      return flag
+      ? (()=>{
+        headerElem.onclick = function() {
+          let randomColor = Math.floor(Math.random()*16777215).toString(16);
+          headerElem.style.color = randomColor
+        }
+        return headerElem
+      })()
+      : (()=>{
+        headerElem.removeAttribute('onClick')
+        headerElem.style.color = 'black'
+      })()
     };
 
     /* EXERCISE 10
@@ -272,6 +295,23 @@
           EX 7
         </button>
 
+        <button type="button" class="btn btn-dark m-2" onclick="
+        disableBtn(this)
+        let prev = paintItGreen( true )
+        reverseIn5sec( () => { paintItGreen( false , prev ); enableBtn(this); } )
+        ">
+          EX 8
+        </button>
+
+        <button type="button" class="btn btn-dark m-2" onclick="
+        disableBtn(this)
+        let elem = makeItClickable( true )
+        console.log(elem)
+        let timer = setInterval(() => elem.click(), 750 ) 
+        reverseIn5sec( () => { makeItClickable( false ); enableBtn(this); clearTimeout(timer) } )
+        ">
+          EX 9
+        </button>
 
 
       </div>
