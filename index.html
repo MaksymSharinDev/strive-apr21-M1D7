@@ -43,19 +43,20 @@
 
     const changePcontent = function (flag, text, prev) {
       let pList = document.querySelectorAll('div>p')
-      prev = flag ? (() => { 
+      prev = flag ? (() => {
         let prevContArray = []
         for (let i = 0; i < pList.length; i++) {
           prevContArray.push(pList[i].innerText)
           pList[i].innerText = text
         }
-        return prevContArray })()
-      : (() => {
-        for (let i = 0; i < pList.length; i++) {
-          pList[i].innerText = prev[i]
-        }
-        return prev
+        return prevContArray
       })()
+        : (() => {
+          for (let i = 0; i < pList.length; i++) {
+            pList[i].innerText = prev[i]
+          }
+          return prev
+        })()
       return prev
     }
 
@@ -63,142 +64,147 @@
     Write a function for changing the destination of every link to https://www.google.com
     */
 
-    const changeUrls = function ( flag, text, prev ) {
+    const changeUrls = function (flag, text, prev) {
       let linksList = document.getElementsByTagName('a')
-      return flag 
+      return flag
 
-      ? (() => {
-        let prevContArray = []
-        for (let i = 0; i < linksList.length; i++) {
-          prevContArray.push(linksList[i].attributes['href'])
-          linksList[i].setAttribute('href',text)
-        }
-        return prevContArray })()
-
-      : (() => {
-        for (let i = 0; i < linksList.length; i++) {
-          linksList[i].setAttribute('href',prev[i] ) 
-        }
-        return prev
+        ? (() => {
+          let prevContArray = []
+          for (let i = 0; i < linksList.length; i++) {
+            prevContArray.push(linksList[i].attributes['href'])
+            linksList[i].setAttribute('href', text)
+          }
+          return prevContArray
         })()
-      
+
+        : (() => {
+          for (let i = 0; i < linksList.length; i++) {
+            linksList[i].setAttribute('href', prev[i])
+          }
+          return prev
+        })()
+
     };
 
     /* EXERCISE 5
      Write a function for adding a new item in the second list.
      */
 
-    const addToTheSecond = function (flag , content, listItemNode) {
+    const addToTheSecond = function (flag, content, listItemNode) {
       let secondList = document.getElementById('secondList')
       return flag
-      ? (()=>{
-        
-        listItemNode = document.createElement('li')
-        listItemNode.innerText = content
-        secondList.appendChild(listItemNode)
-        return listItemNode
-      })()
-      : (()=>{
-        secondList.removeChild(listItemNode)
-      })()
+        ? (() => {
+
+          listItemNode = document.createElement('li')
+          listItemNode.innerText = content
+          secondList.appendChild(listItemNode)
+          return listItemNode
+        })()
+        : (() => {
+          secondList.removeChild(listItemNode)
+        })()
     };
 
     /* EXERCISE 6
     Write a function for adding a second paragraph to the div.
     */
 
-    const addParagraph = function (flag , content, listItemNode) {
+    const addParagraph = function (flag, content, listItemNode) {
       let divWithP = document.querySelector('div>p').parentElement
       return flag
-      ? (()=>{
-        pNode = document.createElement('p')
-        pNode.innerText = content
-        divWithP.appendChild(pNode)
-        return pNode
-      })()
-      : (()=>{
-        divWithP.removeChild(pNode)
-      })()}
+        ? (() => {
+          pNode = document.createElement('p')
+          pNode.innerText = content
+          divWithP.appendChild(pNode)
+          return pNode
+        })()
+        : (() => {
+          divWithP.removeChild(pNode)
+        })()
+    }
 
     /* EXERCISE 7
     Write a function for making the first UL disappear.
     */
 
-    const firstUlDisappear = function (flag , content ) {
+    const firstUlDisappear = function (flag, content) {
       let firstUl = document.getElementById('firstList')
       flag
-      ? (()=>{
-        let original = firstUl.style.backgroundColor
-        firstUl.style.color = '#FF0000' 
-        setTimeout( () => firstUl.setAttribute('hidden', true)  , 2000)
-        setTimeout( () => firstUl.style.color = original  , 2001 )  
-      })()
-      : (()=>{
-        firstUl.removeAttribute('hidden')
-      })()}
+        ? (() => {
+          let original = firstUl.style.backgroundColor
+          firstUl.style.color = '#FF0000'
+          setTimeout(() => firstUl.setAttribute('hidden', true), 2000)
+          setTimeout(() => firstUl.style.color = original, 2001)
+        })()
+        : (() => {
+          firstUl.removeAttribute('hidden')
+        })()
+    }
 
     /* EXERCISE 8
     Write a function for making the background of every UL green.
     */
 
-    const paintItGreen = function (flag , prev) {
+    const paintItGreen = function (flag, prev) {
       let UlList = document.getElementsByTagName('ul')
       return flag
-      ? (()=>{
-        prev = UlList[0].style.backgroundColor
-        for (let i = 0; i < UlList.length; i++) {
-          UlList[i].style.backgroundColor = 'green' }
-        return prev
-      })()
-      : (()=>{
-        for (let i = 0; i < UlList.length; i++) {
-        UlList[i].style.backgroundColor = prev }
-      })()
+        ? (() => {
+          prev = UlList[0].style.backgroundColor
+          for (let i = 0; i < UlList.length; i++) {
+            UlList[i].style.backgroundColor = 'green'
+          }
+          return prev
+        })()
+        : (() => {
+          for (let i = 0; i < UlList.length; i++) {
+            UlList[i].style.backgroundColor = prev
+          }
+        })()
     };
 
     /* EXERCISE 9
     Make the heading of the page change color every time the user clicks on it.
     */
 
-    const makeItClickable = function (flag , prev) {
+    const makeItClickable = function (flag, prev) {
       let headerElem = document.getElementsByTagName('header')[0]
       return flag
-      ? (()=>{
-        headerElem.onclick = function() {
-          let randomColor = Math.floor(Math.random()*16777215).toString(16);
-          headerElem.style.color = randomColor
-        }
-        return headerElem
-      })()
-      : (()=>{
-        headerElem.removeAttribute('onClick')
-        headerElem.style.color = 'black'
-      })()
+        ? (() => {
+          headerElem.onclick = function () {
+            let randomColor = Math.floor(Math.random() * 16777215).toString(16);
+            headerElem.style.color = randomColor
+          }
+          return headerElem
+        })()
+        : (() => {
+          headerElem.removeAttribute('onClick')
+          headerElem.style.color = 'black'
+        })()
     };
 
     /* EXERCISE 10
     Change the footer text with something else when the user clicks on it.
     */
 
-    const changeFooterText = function (flag , content, prev) {
+    const changeFooterText = function (flag, content, prev) {
       let footerElem = document.getElementsByTagName('footer')[0].children[0]
-      return flag 
-      ? (()=>{
-        let prev = footerElem.innerText
-        footerElem.innerText = content
-        return prev
-      })()
-      : (()=>{
-        footerElem.innerText = prev
-      })()
+      return flag
+        ? (() => {
+          let prev = footerElem.innerText
+          footerElem.innerText = content
+          return prev
+        })()
+        : (() => {
+          footerElem.innerText = prev
+        })()
     };
 
     /* EXERCISE 11
     Attach an event listener to the input field in the page for console logging its value just after any keystroke.
     */
-    
+
     //I declared again UP //const inputField = document.getElementById("input-field");
-    
+
 
     /* EXERCISE 12
     Create a new welcome alert message when the page successfully loads.
@@ -237,7 +243,7 @@
   </div>
   <div class="row">
     <div class="col-1">
-      <div id="exercises" class="container text-center d-flex m-2" style="
+      <aside id="exercises" class="container text-center d-flex m-2" style="
       flex-direction: column;
       margin: 25px; padding: 10px;
       border-style: solid; border-radius: 3px; border-color: #667cde; box-shadow: 5px 5px 2px #667cde;
@@ -348,7 +354,7 @@
         </button>
 
 
-      </div>
+      </aside>
     </div>
     <div class="col-11">
       <main>
@@ -365,9 +371,9 @@
           <li>2nd</li>
           <li>3rd</li>
         </ul>
-
-        <a href="strive.school">This link goes to Strive School</a>
-
+        <nav>
+          <a href="strive.school">This link goes to Strive School</a>
+        </nav>
         <div>
           <p>This text is just for the exercise</p>
         </div>
