@@ -196,9 +196,9 @@
     /* EXERCISE 11
     Attach an event listener to the input field in the page for console logging its value just after any keystroke.
     */
-    //declared Up in the code
-    //const inputField = document.getElementById("input-field");
-    // ...
+    
+    //I declared again UP //const inputField = document.getElementById("input-field");
+    
 
     /* EXERCISE 12
     Create a new welcome alert message when the page successfully loads.
@@ -328,6 +328,23 @@
         reverseIn5sec( () => { changeFooterText( false , null, prev ); enableBtn(this); } )
         ">
           EX 10
+        </button>
+
+        <button type="button" class="btn btn-dark m-2" onclick="
+        let keyStrArr = [] 
+        disableBtn(this)
+        let eH = (e) => {
+          console.log(e.key)
+          keyStrArr.push(e.key) }
+        inputField().addEventListener('keyup', eH )
+        reverseIn5sec( () => { 
+          inputField().removeEventListener('keyup' , eH ); 
+          alert('key pressed:\n' + JSON.stringify(keyStrArr))
+          enableBtn(this); 
+          inputField().value = ''
+        })
+        ">
+          EX 11
         </button>
 
 
